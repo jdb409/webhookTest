@@ -1,18 +1,4 @@
-// Copyright 2017, Google, Inc.
-// Licensed under the Apache License, Version 2.0 (the 'License');
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an 'AS IS' BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
-'use strict';
-// const http = require('http');
 const app = require('express')();
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 3000;
@@ -29,10 +15,31 @@ app.post('/', (req, res) => {
     console.log(app.getIntent())
     actionMap.set(WELCOME_INTENT, welcomeIntent);
     actionMap.set(OPTION_INTENT, optionIntent);
+    actionMap.set('input.carousel', carousel);
     console.log('outter', app.getSelectedOption());
     app.handleRequest(actionMap);
 
 })
+
+function carousel (app) {
+    const response = app.buildRichResponse();
+      // Introduce the carousel
+      response.addSimpleResponse('Alright! Here are a few web pages you might want to check out.')
+      .addBrowseCarousel(
+        app.buildBrowseCarousel()
+        // Add the items to the carousel
+          .addItems([
+            app.buildBrowseItem("Title of item 1", "https://github.com")
+              .setDescription("Description of item 1")
+              .setFooter("Item 1 footer")
+              .setImage('https://www.gstatic.com/mobilesdk/170329_assistant/assistant_color_96dp.png', 'Google Assistant Bubbles'),
+            app.buildBrowseItem("Title of item 2", "https://google.com")
+              .setDescription("Description of item 2")
+              .setFooter("Item 2 footer")
+              .setImage('https://www.gstatic.com/mobilesdk/170329_assistant/assistant_color_96dp.png', 'Google Assistant Bubbles')
+          ])
+      );
+  }
 
 function welcomeIntent(app) {
     app.askWithList('Which of these looks good?',
