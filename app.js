@@ -26,6 +26,7 @@ app.use(bodyparser.json())
 app.post('/', (req, res) => {
     const app = new DialogflowApp({ request: req, response: res });
     const actionMap = new Map();
+    console.log(app.getIntent())
     actionMap.set(WELCOME_INTENT, welcomeIntent);
     actionMap.set(OPTION_INTENT, optionIntent);
     app.handleRequest(actionMap);
