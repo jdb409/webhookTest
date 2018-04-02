@@ -17,52 +17,41 @@ const app = require('express')();
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 3000;
 const { DialogflowApp } = require('actions-on-google');
-// const host = 'api.worldweatheronline.com';
-// const wwoApiKey = '25417004f3694bd58a130149180103';
+const WELCOME_INTENT = 'input.welcome';
+const OPTION_INTENT = 'option.select';
 console.log(port);
 
 app.use(bodyparser.json())
 
-function welcomeIntent(app) {
-    app.ask('Welcome to number echo! Say a number.');
-}
-
-function questionIntent(app) {
-    app.ask('question');
-}
-
 app.post('/', (req, res) => {
     const app = new DialogflowApp({ request: req, response: res });
-    // console.log(app);
-    const WELCOME_INTENT = 'input.welcome';  // the action name from the Dialogflow intent
-    // const NUMBER_INTENT = 'input.number';  // the action name from the Dialogflow intent
-    // const NUMBER_ARGUMENT = 'input.mynum'; // the action name from the Dialogflow intent
-
-    let actionMap = new Map();
+    const actionMap = new Map();
     actionMap.set(WELCOME_INTENT, welcomeIntent);
-    actionMap.set('Question', questionIntent)
-    console.log(app.getIntent());
-    // actionMap.set(NUMBER_INTENT, numberIntent);
-    app.handleRequest(actionMap)
-    //   // Get the city and date from the request
-    //   let city = req.body.result.parameters['geo-city']; // city is a required param
-    //   // Get the date for the weather forecast (if present)
-    //   let date = '';
-    //   if (req.body.result.parameters['date']) {
-    //     date = req.body.result.parameters['date'];
-    //     console.log('Date: ' + date);
-    //   }
-    // Call the weather API
-    //   callWeatherApi(city, date).then((output) => {
-    //     // Return the results of the weather API to Dialogflow
-    //     res.setHeader('Content-Type', 'application/json');
-    //     res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
-    //   }).catch((error) => {
-    //     // If there is an error let the user know
-    //     res.setHeader('Content-Type', 'application/json');
-    //     res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
-    //   });
+    actionMap.set(OPTION_INTENT, optionIntent);
+    app.handleRequest(actionMap);
+
 })
+
+function welcomeIntent(app) {
+    app.askWithList('Which of these looks good?',
+        app.buildList('List title')
+            .addItems([
+                app.buildOptionItem('one',
+                    ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'])
+                    .setTitle('Title of First List Item'),
+                app.buildOptionItem('two',
+                    ['synonym of KEY_TWO 1', 'synonym of KEY_TWO 2'])
+                    .setTitle('Title of Second List Item'),
+            ]));
+}
+
+function optionIntent(app) {
+    if (app.getSelectedOption() === 'one') {
+        app.tell('Number one is a great choice!');
+    } else {
+        app.tell('Number two is a great choice!');
+    }
+}
 
 app.listen(port, () => {
     console.log('listening')
