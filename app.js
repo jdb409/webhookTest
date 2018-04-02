@@ -29,7 +29,7 @@ app.post('/', (req, res) => {
     console.log(app.getIntent())
     actionMap.set(WELCOME_INTENT, welcomeIntent);
     actionMap.set(OPTION_INTENT, optionIntent);
-    console.log('outter',app.getSelectedOption());
+    console.log('outter', app.getSelectedOption());
     app.handleRequest(actionMap);
 
 })
@@ -38,14 +38,12 @@ function welcomeIntent(app) {
     app.askWithList('Which of these looks good?',
         app.buildList('List title')
             .addItems([
-                app.buildOptionItem('one',
-                    ['synonym of KEY_ONE 1', 'synonym of KEY_ONE 2'])
-                    .setTitle('Title of First List Item'),
-                app.buildOptionItem('two',
-                    ['synonym of KEY_TWO 1', 'synonym of KEY_TWO 2'])
-                    .setTitle('Title of Second List Item'),
+                app.buildOptionItem('one')
+                    .setTitle('one'),
+                app.buildOptionItem('two')
+                    .setTitle('two'),
             ]));
-            console.log('inner',app.getSelectedOption());
+    console.log('inner', app.getSelectedOption());
     optionIntent(app);
 }
 
