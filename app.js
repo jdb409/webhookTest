@@ -22,24 +22,24 @@ app.post('/', (req, res) => {
 })
 
 function carousel (app) {
-    const response = app.buildRichResponse()
-      // Introduce the carousel
-    addSimpleResponse('Alright! Here are a few web pages you might want to check out.')
-      .addBrowseCarousel(
-        app.buildBrowseCarousel()
-        // Add the items to the carousel
-          .addItems([
-            app.buildBrowseItem("Title of item 1", "https://github.com")
-              .setDescription("Description of item 1")
-              .setFooter("Item 1 footer")
-              .setImage('https://www.gstatic.com/mobilesdk/170329_assistant/assistant_color_96dp.png', 'Google Assistant Bubbles'),
-            app.buildBrowseItem("Title of item 2", "https://google.com")
-              .setDescription("Description of item 2")
-              .setFooter("Item 2 footer")
-              .setImage('https://www.gstatic.com/mobilesdk/170329_assistant/assistant_color_96dp.png', 'Google Assistant Bubbles')
-          ])
-      );
-  }
+  const response = app.buildRichResponse()
+    // Introduce the carousel
+    .addSimpleResponse('Alright! Here are a few web pages you might want to check out.')
+    .addBrowseCarousel(
+      app.buildBrowseCarousel()
+      // Add the items to the carousel
+        .addItems([
+          app.buildBrowseItem("Title of item 1", "https://github.com")
+            .setDescription("Description of item 1")
+            .setFooter("Item 1 footer")
+            .setImage('https://www.gstatic.com/mobilesdk/170329_assistant/assistant_color_96dp.png', 'Google Assistant Bubbles'),
+          app.buildBrowseItem("Title of item 2", "https://google.com")
+            .setDescription("Description of item 2")
+            .setFooter("Item 2 footer")
+            .setImage('https://www.gstatic.com/mobilesdk/170329_assistant/assistant_color_96dp.png', 'Google Assistant Bubbles')
+        ])
+    );
+}
 
 function welcomeIntent(app) {
     app.askWithList('Which of these looks good?',
