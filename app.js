@@ -4,7 +4,7 @@ const bodyparser = require('body-parser')
 const port = process.env.PORT || 3000;
 const { DialogflowApp } = require('actions-on-google');
 const WELCOME_INTENT = 'input.welcome';
-const OPTION_INTENT = 'option.select';
+const OPTION_INTENT = 'actions.intent.OPTION';
 console.log(port);
 
 app.use(bodyparser.json())
@@ -16,7 +16,7 @@ app.post('/', (req, res) => {
     actionMap.set(WELCOME_INTENT, welcomeIntent);
     actionMap.set(OPTION_INTENT, optionIntent);
     actionMap.set('input.carousel', carousel);
-    console.log('outter', app.StandardIntents);
+    console.log('outter', app.StandardIntents.OPTION);
     app.handleRequest(actionMap);
 
 })
