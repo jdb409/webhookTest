@@ -27,15 +27,21 @@ function welcomeIntent(app) {
     app.ask('Welcome to number echo! Say a number.');
 }
 
+function questionIntent(app) {
+    app.ask('question');
+}
+
 app.post('/', (req, res) => {
     const app = new DialogflowApp({ request: req, response: res });
-    console.log(app);
+    // console.log(app);
     const WELCOME_INTENT = 'input.welcome';  // the action name from the Dialogflow intent
     // const NUMBER_INTENT = 'input.number';  // the action name from the Dialogflow intent
     // const NUMBER_ARGUMENT = 'input.mynum'; // the action name from the Dialogflow intent
 
     let actionMap = new Map();
     actionMap.set(WELCOME_INTENT, welcomeIntent);
+    actionMap.set('Question', questionIntent)
+    console.log(app.getIntent());
     // actionMap.set(NUMBER_INTENT, numberIntent);
     app.handleRequest(actionMap)
     //   // Get the city and date from the request
