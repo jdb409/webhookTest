@@ -44,6 +44,7 @@ function welcomeIntent(app) {
                     ['synonym of KEY_TWO 1', 'synonym of KEY_TWO 2'])
                     .setTitle('Title of Second List Item'),
             ]));
+    optionIntent(app);
 }
 
 function optionIntent(app) {
