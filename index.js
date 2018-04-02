@@ -13,10 +13,14 @@
 
 'use strict';
 const http = require('http');
+const app = require('express')();
+const port = process.env.PORT || 3000;
 const host = 'api.worldweatheronline.com';
 const wwoApiKey = '25417004f3694bd58a130149180103';
-console.log('hello');
-exports.weatherWebhook = (req, res) => {
+console.log(port);
+
+
+app.post('/', (req, res) => {
   console.log('req', req);
   // Get the city and date from the request
   let city = req.body.result.parameters['geo-city']; // city is a required param
@@ -36,7 +40,8 @@ exports.weatherWebhook = (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
   });
-};
+})
+
 function callWeatherApi (city, date) {
   return new Promise((resolve, reject) => {
     // Create the path for the HTTP request to get the weather
@@ -70,3 +75,7 @@ function callWeatherApi (city, date) {
     });
   });
 }
+
+app.listen(port, () => {
+  console.log('listening')
+})
