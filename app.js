@@ -16,7 +16,7 @@ app.post('/', (req, res) => {
     actionMap.set(WELCOME_INTENT, welcomeIntent);
     actionMap.set(OPTION_INTENT, optionIntent);
     actionMap.set('input.carousel', carousel);
-    console.log('outter', app.getSelectedOption());
+    console.log('outter', app.StandardIntents);
     app.handleRequest(actionMap);
 
 })
