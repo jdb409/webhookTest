@@ -22,9 +22,9 @@ app.post('/', (req, res) => {
 })
 
 function carousel (app) {
-    const response = app.buildRichResponse();
+    const response = app.buildRichResponse()
       // Introduce the carousel
-      response.addSimpleResponse('Alright! Here are a few web pages you might want to check out.')
+    addSimpleResponse('Alright! Here are a few web pages you might want to check out.')
       .addBrowseCarousel(
         app.buildBrowseCarousel()
         // Add the items to the carousel
