@@ -4,7 +4,9 @@ const bodyparser = require('body-parser')
 const port = process.env.PORT || 3000;
 const { DialogflowApp } = require('actions-on-google');
 const OVERVIEW_INTENT = 'input.overview';
+const PERFORMANCE_INTENT = 'input.performance';
 const OPTION_INTENT = 'actions.intent.OPTION';
+
 console.log(port);
 
 app.use(bodyparser.json())
@@ -15,14 +17,30 @@ app.post('/', (req, res) => {
     console.log(app.getIntent())
     actionMap.set(OVERVIEW_INTENT, overviewIntent);
     actionMap.set(OPTION_INTENT, optionIntent);
-    // actionMap.set('input.carousel', carousel);
-    // console.log('outter', app.StandardIntents.OPTION);
+    actionMap.set(PERFORMANCE_INTENT, performanceIntent)
     actionMap.set(null, () => {
         app.ask('Try again');
     })
     app.handleRequest(actionMap);
 
 })
+
+function performanceIntent(app) {
+    app.ask(app.buildRichResponse()
+        // Create a basic card and add it to the rich response
+        .addSimpleResponse('Math and prime numbers it is!')
+        .addBasicCard(app.buildBasicCard('42 is an even composite number. It' +
+            'is composed of three distinct prime numbers multiplied together. It' +
+            'has a total of eight divisors. 42 is an abundant number, because the' +
+            'sum of its proper divisors 54 is greater than itself. To count from' +
+            '1 to 42 would take you about twenty-one…')
+            .setTitle('Math & prime numbers')
+            .addButton('Read more', 'https://example.google.com/mathandprimes')
+            .setImage('https://example.google.com/42.png', 'Image alternate text')
+            .setImageDisplay('CROPPED')
+        )
+    );
+}
 
 function overviewIntent(app) {
     app.askWithList('You can say:',
