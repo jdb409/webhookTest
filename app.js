@@ -28,12 +28,11 @@ app.post('/', (req, res) => {
 function performanceIntent(app) {
     app.ask(app.buildRichResponse()
         // Create a basic card and add it to the rich response
-        .addSimpleResponse('Math and prime numbers it is!')
+        .addSimpleResponse('Performance of $10,000')
         .addBasicCard(app.buildBasicCard(`If $10,000 was 
         invested in QQQ, 10 years prior to December 31st, 2017 it would have grown to $33,368 versus $26,028 
         for the NASDAQ Composite Index or $22,822 for the Russell 3000 Index`)
-            .setTitle('Math & prime numbers')
-            .addButton('Read more', 'https://example.google.com/mathandprimes')
+            .addButton('Read more', 'https://google.com')
             .setImage('https://ei.marketwatch.com/Multimedia/2016/10/28/Photos/NS/MW-EY988_AMZN_B_20161028113003_NS.png?uuid=657f8b00-9d23-11e6-911d-00137241c023', 'Image alternate text')
             .setImageDisplay('CROPPED')
         )
@@ -42,7 +41,7 @@ function performanceIntent(app) {
 
 function overviewIntent(app) {
     app.askWithList('You can say:',
-        app.buildList('List title')
+        app.buildList('Options:')
             .addItems([
                 app.buildOptionItem('Fund Description')
                     .setTitle('Fund Description'),
