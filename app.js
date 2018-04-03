@@ -3,8 +3,8 @@ const app = require('express')();
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 3000;
 const { DialogflowApp } = require('actions-on-google');
-const OVERVIEW_INTENT = 'input.welcome';
-const OPTION_INTENT = 'actions.intent.OPTION';
+const OVERVIEW_INTENT = 'input.overview';
+// const OPTION_INTENT = 'actions.intent.OPTION';
 console.log(port);
 
 app.use(bodyparser.json())
