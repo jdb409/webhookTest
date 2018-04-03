@@ -33,7 +33,6 @@ function performanceIntent(app) {
         for the NASDAQ Composite Index or $22,822 for the Russell 3000 Index`)
             .setTitle('10K performance')
             .addButton('Read more', 'https://google.com')
-            .setImage('https://ei.marketwatch.com/Multimedia/2016/10/28/Photos/NS/MW-EY988_AMZN_B_20161028113003_NS.png?uuid=657f8b00-9d23-11e6-911d-00137241c023', 'Image alternate text')
             .setImageDisplay('CROPPED')
         )
     );
