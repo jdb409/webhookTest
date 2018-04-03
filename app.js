@@ -60,8 +60,7 @@ function optionIntent(app) {
         As of December, 31st 2017 there are 106 securities in the ETF, with a 30-Day SEC Yield of .86%, 
         a 30-Day SEC Unsubsidized Yield and a Total Expense Ratio of .20%`);
     } else if (app.getSelectedOption() === 'Fund Description') {
-        app.tell(`PowerShares QQQ is an exchange-traded fund, or ETF, based on the Nasdaq 100 Index.  The Fund will, under most circumstances, consist of all the stocks in the Index.  The Index includes 100 of the largest domestic and international nonfinancial companies listed on the Nasdaq stock market based on market capitalization.  
-        The Fund and the Index are rebalanced quarterly and reconstituted annually`);
+        app.tell(`webhook`);
     }
 }
 
